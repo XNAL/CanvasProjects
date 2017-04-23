@@ -4,7 +4,8 @@ window.onload = function () {
 	var width = ctx.canvas.width;
 	var height = ctx.canvas.height;
 	var r = width / 2;
-
+	
+	// 画表盘
 	function drawBackground() {
 		ctx.save();
 		ctx.translate(r, r);
@@ -12,7 +13,8 @@ window.onload = function () {
 		ctx.lineWidth = 10;
 		ctx.arc(0, 0, r - 5, 0, 2 * Math.PI, false);
 		ctx.stroke();
-
+		
+		// 画小时
 		var hourNumbers = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
 		ctx.font = '18px Arial';
 		ctx.textAlign = 'center';
@@ -29,18 +31,20 @@ window.onload = function () {
 			var x = Math.cos(rad) * (r - 18);
 			var y = Math.sin(rad) * (r - 18);
 			ctx.beginPath();
+			// 画分钟
 			if(i % 5 === 0) {
 				ctx.fillStyle = "#000";
 				ctx.arc(x, y, 2, 0, 2 * Math.PI, false);
 			}
-			else {
+			else {	// 画秒钟
 				ctx.fillStyle = "#ccc";
 				ctx.arc(x, y, 2, 0, 2 * Math.PI, false);
 			}
 			ctx.fill();
 		}
 	}
-
+	
+	// 画时针
 	function drawHour(hour, minute) {
 		ctx.save();
 		ctx.beginPath();
@@ -54,7 +58,8 @@ window.onload = function () {
 		ctx.stroke();
 		ctx.restore();
 	}
-
+	
+	// 画分针
 	function drawMinute(minute) {
 		ctx.save();
 		ctx.beginPath();
@@ -67,7 +72,8 @@ window.onload = function () {
 		ctx.stroke();
 		ctx.restore();
 	}
-
+	
+	// 画秒针
 	function drawSecond(second) {
 		ctx.save();
 		ctx.beginPath();
@@ -81,7 +87,8 @@ window.onload = function () {
 		ctx.fill();
 		ctx.restore();
 	}
-
+	
+	// 画转轴
 	function drawDot() {
 		ctx.beginPath();
 		ctx.fillStyle = "#fff";
@@ -90,7 +97,7 @@ window.onload = function () {
 	}
 
 
-
+	// 画时钟
 	function drawClock() {
 		ctx.clearRect(0, 0, width, height);
 		var now = new Date();
@@ -104,6 +111,7 @@ window.onload = function () {
 		drawDot();	
 		ctx.restore();
 	}
-
+	
+	// 定时每秒执行一次
 	setInterval(drawClock, 1000);
 }
